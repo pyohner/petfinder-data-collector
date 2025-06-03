@@ -1,0 +1,10 @@
+# Node or Python envs
+.env
+__pycache__/
+*.pyc
+
+# Token and credentials
+token_cache.json
+
+# Output files
+data_snapshots/
