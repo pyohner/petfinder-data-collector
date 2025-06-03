@@ -47,4 +47,4 @@ All files are saved to the `data_snapshots/` folder:
 
 ## 📄 License
 
-MIT License (or specify your preferred license)
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
