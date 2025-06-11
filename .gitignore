@@ -8,3 +8,8 @@ token_cache.json
 
 # Output files
 data_snapshots/
+
+# BAT run script and log
+run_script_silent.bat
+run_script_debug.bat
+log.txt
