@@ -161,38 +161,22 @@ def clean_animal_data(animals):
 
 
 # --- FETCH ORGANIZATIONS ---
-def fetch_organizations_by_location(token, location=LOCATION, limit=100, pages=10):
-    print(f"Fetching organizations in {location}...")
+def fetch_organizations_by_ids(token, org_ids):
+    print("Fetching organizations by ID...")
     headers = {"Authorization": f"Bearer {token}"}
     all_orgs = []
 
-    for page in range(1, pages + 1):
-        print(f"Fetching organization page {page}/{pages}...")
-        params = {
-            "location": location,
-            "limit": limit,
-            "page": page
-        }
-        url = "https://api.petfinder.com/v2/organizations"
-        data = safe_get(url, headers, params)
-        if not data:
-            break
+    for org_id in sorted(set(org_ids)):
+        print(f"Fetching organization {org_id}...")
+        url = f"https://api.petfinder.com/v2/organizations/{org_id}"
+        data = safe_get(url, headers, params={})
+        if data and "organization" in data:
+            all_orgs.append(data["organization"])
+        time.sleep(0.2)  # be polite to the API
 
-        orgs = data.get("organizations", [])
-        if not orgs:
-            print(f"No organizations returned on page {page}. Stopping early.")
-            break
-
-        all_orgs.extend(orgs)
-
-        if len(orgs) < limit:
-            print(f"Fewer than {limit} results on page {page}. Assuming end of data.")
-            break
-
-        time.sleep(0.2)
-
-    print(f"Finished fetching organizations. Total: {len(all_orgs)}")
+    print(f"Finished fetching {len(all_orgs)} organizations.")
     return all_orgs
+
 
 
 # --- CLEAN ORGANIZATION DATA ---
@@ -426,19 +410,29 @@ def import_to_db(animal_path, org_path):
 def main():
     token = get_auth_token()
 
+    # === Fetch and clean animals ===
     animals_raw = fetch_animals(token)
     animals_clean = clean_animal_data(animals_raw)
     save_to_file(animals_clean, "data")
 
-    orgs_raw = fetch_organizations_by_location(token)
-    orgs_clean = clean_organization_data(orgs_raw)
-    save_to_file(orgs_clean, "organizations")
+    # === Extract unique org IDs from animals ===
+    org_ids = [a["organization_id"] for a in animals_clean if a.get("organization_id")]
 
+    # === Fetch orgs by ID ===
+    orgs_raw = fetch_organizations_by_ids(token, org_ids)
+    orgs_clean = clean_organization_data(orgs_raw)
+    with open(org_file, "w", encoding="utf-8") as f:
+        json.dump(orgs_clean, f, indent=2)
+    print(f"Saved organizations to {org_file}")
+
+    # === Match org data to animals and save merged version ===
     animals_with_orgs = match_organizations(animals_clean, orgs_clean)
     save_to_file(animals_with_orgs, "data_with_orgs")
 
+    # === Import into SQLite database ===
     import_to_db(animal_file, org_file)
 
 
 if __name__ == "__main__":
     main()
+
