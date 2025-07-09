@@ -40,6 +40,11 @@ All files are saved to the `data_snapshots/` folder:
 - `organizations_YYYY-MM-DD.json` – cleaned organization data  
 - `data_with_orgs_YYYY-MM-DD.json` – animal data enriched with organization info
 
+## 💬 Related Repositories
+
+- [Rescue Radar App (Frontend)](https://github.com/pyohner/rescue-radar-app)
+- [Rescue Radar API (Backend)](https://github.com/pyohner/rescue-radar-api)
+
 ## 🧾 Notes
 
 - API usage is subject to daily and hourly limits. The script handles retry logic but may stop early if you exceed your quota.  
