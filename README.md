@@ -1,15 +1,16 @@
 # Petfinder Data Collector
 
-This Python script collects animal and organization data from the [Petfinder API](https://www.petfinder.com/developers/). It handles authentication, rate limits, data cleaning, and enrichment, and saves the results to local JSON files.
+This Python script collects animal and organization data from the [Petfinder API](https://www.petfinder.com/developers/). It handles authentication, rate limits, data cleaning, and enrichment, and saves the results to local JSON files and a SQLite database.
 
 ## 🚀 Features
 
 - Authenticates using API key and secret  
 - Caches access token to avoid redundant requests  
-- Handles API rate limiting (HTTP 429)  
+- Handles API rate limiting (HTTP 429) and server errors  
 - Cleans and filters raw animal and organization data  
 - Matches each animal with its organization info  
-- Outputs to date-stamped JSON files
+- Outputs to date-stamped JSON files  
+- Imports data into a SQLite database (path set via environment variable)
 
 ## 🛠 Setup
 
@@ -24,6 +25,7 @@ This Python script collects animal and organization data from the [Petfinder API
    ```env
    PETFINDER_API_KEY=your_petfinder_key
    PETFINDER_API_SECRET=your_petfinder_secret
+   DATABASE_PATH=C:/path/to/petfinder_data.db
    ```
 
 3. **Run the script:**
@@ -40,9 +42,11 @@ All files are saved to the `data_snapshots/` folder:
 - `organizations_YYYY-MM-DD.json` – cleaned organization data  
 - `data_with_orgs_YYYY-MM-DD.json` – animal data enriched with organization info
 
+The SQLite database is updated at the path specified in `DATABASE_PATH`.
+
 ## 💬 Related Repositories
 
-- [Rescue Radar App (Frontend)](https://github.com/pyohner/rescue-radar-app)
+- [Rescue Radar App (Frontend)](https://github.com/pyohner/rescue-radar-app)  
 - [Rescue Radar API (Backend)](https://github.com/pyohner/rescue-radar-api)
 
 ## 🧾 Notes
