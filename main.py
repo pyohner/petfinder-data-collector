@@ -25,7 +25,7 @@ today_str = datetime.today().strftime("%Y-%m-%d")
 base_dir = Path(__file__).resolve().parent
 animal_file = base_dir / f"data_snapshots/data_{today_str}.json"
 org_file = base_dir / f"data_snapshots/organizations_{today_str}.json"
-DB_FILE = Path("C:/Users/yohnep25/PycharmProjects/databases/petfinder_data.db")
+DB_FILE = Path(os.getenv("DATABASE_PATH"))
 
 
 # --- TOKEN CACHING ---
