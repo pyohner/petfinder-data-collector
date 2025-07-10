@@ -46,8 +46,8 @@ The SQLite database is updated at the path specified in `DATABASE_PATH`.
 
 ## 💬 Related Repositories
 
-- [Rescue Radar App (Frontend)](https://github.com/pyohner/rescue-radar-app)  
-- [Rescue Radar API (Backend)](https://github.com/pyohner/rescue-radar-api)
+- [Rescue Radar App (Frontend)](https://github.com/pyohner/rescue_radar_app)  
+- [Rescue Radar API (Backend)](https://github.com/pyohner/rescue_radar_api)
 
 ## 🧾 Notes
 
