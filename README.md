@@ -31,7 +31,7 @@ This Python script collects animal and organization data from the [Petfinder API
 3. **Run the script:**
 
    ```bash
-   python collect_petfinder_data.py
+   python main.py
    ```
 
 ## 📁 Output
