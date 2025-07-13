@@ -8,9 +8,8 @@ from dotenv import load_dotenv
 import sqlite3
 from pathlib import Path
 
-
 # --- LOAD API CREDENTIALS FROM .env ---
-load_dotenv()  # Loads from .env file if present
+load_dotenv()  # Loads from .env file
 API_KEY = os.getenv("PETFINDER_API_KEY")
 API_SECRET = os.getenv("PETFINDER_API_SECRET")
 
@@ -176,7 +175,6 @@ def fetch_organizations_by_ids(token, org_ids):
 
     print(f"Finished fetching {len(all_orgs)} organizations.")
     return all_orgs
-
 
 
 # --- CLEAN ORGANIZATION DATA ---
@@ -435,4 +433,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
