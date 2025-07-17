@@ -240,6 +240,7 @@ def save_to_file(data, name_prefix):
     print(f"Saved {name_prefix} to {filename}")
 
 
+# --- SAVE TO DATABASE ---
 def import_to_db(animal_path, org_path):
     # === Check if both files exist ===
     if not animal_path.exists() or not org_path.exists():
